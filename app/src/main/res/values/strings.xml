@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="drawer_strings">
+        <item>Categories</item>
+        <item>Map</item>
+        <item>Profil</item>
+        <item>Preferences</item>
+    </string-array>
+
+
     <string name="app_name">BonAp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="create_button">Create User</string>
+    <string name="title_activity_login">Sign In</string>
+    <string name="send">Send</string>
+    <string name="create_conf_password">Confirm Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="drawer_profile_image_desc">Profil pic</string>
+    <string name="title_activity_category">Categories</string>
+    <string name="title_activity_category_item">Category</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_logout_string">Logout</string>
+    <string name="pref_logout_summary_string">Delete all cached user data</string>
 
 </resources>

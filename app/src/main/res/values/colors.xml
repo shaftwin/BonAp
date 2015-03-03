@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#ff006eb8</color>
+    <color name="colorPrimary">#008EE3</color>
+    <color name="blue">#008EE3</color>
+    <color name="drawerBgColor">#fff</color>
+</resources>
