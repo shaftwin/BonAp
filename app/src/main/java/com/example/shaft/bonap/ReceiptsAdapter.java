@@ -34,7 +34,7 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyView
         myViewHolder.title.setText(events.get(i).title);
         //myViewHolder.date.setText(events.get(i).date);
         myViewHolder.description.setText(events.get(i).description);
-        myViewHolder.title_pic.setImageResource(R.drawable.df);
+        myViewHolder.title_pic.setImageResource(events.get(i).recipePic);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyView
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            title = (TextView) itemView.findViewById(R.id.event_title);
-            description = (TextView) itemView.findViewById(R.id.location);
+            title = (TextView) itemView.findViewById(R.id.recipe_title);
+            description = (TextView) itemView.findViewById(R.id.description);
             title_pic = ((ImageView) itemView.findViewById(R.id.title_pic));
         }
 

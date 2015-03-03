@@ -1,5 +1,7 @@
 package com.example.shaft.bonap;
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 /**
@@ -8,5 +10,6 @@ import java.io.Serializable;
 public class Receipts implements Serializable{
     public String title;
     public String description;
+    public int recipePic;
 
 }

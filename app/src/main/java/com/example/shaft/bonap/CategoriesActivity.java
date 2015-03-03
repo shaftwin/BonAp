@@ -1,5 +1,6 @@
 package com.example.shaft.bonap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,12 +34,9 @@ public class CategoriesActivity extends BaseActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-
-                Toast.makeText(
-                        getApplicationContext(),
-                        ((TextView) v.findViewById(R.id.grid_item_label))
-                                .getText(), Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getApplicationContext(), ReceiptsActivity.class);
+                intent.putExtra("type", CATEGORIES[position]);
+                startActivity(intent);
             }
         });
     }
