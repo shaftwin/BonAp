@@ -18,9 +18,10 @@
         </activity>
         <activity android:name=".BaseActivity"/>
         <activity android:name=".CreateUser"/>
-        <activity android:name=".CategoryActivity"/>
-        <activity android:name=".CategoryItemActivity"/>
+        <activity android:name=".ReceiptsActivity"/>
+        <activity android:name=".ReceiptsItemActivity"/>
         <activity android:name=".SettingsActivity"/>
+        <activity android:name=".CategoriesActivity"/>
     </application>
 
 </manifest>

@@ -9,17 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Shaft on 03/03/2015.
  */
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-    private List<Category> events;
+public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyViewHolder> {
+    private List<Receipts> events;
     private LayoutInflater inflater;
     private ClickListener clickListener;
 
-    public CategoryAdapter(Context context, List<Category> events) {
+    public ReceiptsAdapter(Context context, List<Receipts> events) {
         inflater = LayoutInflater.from(context);
         this.events = events;
     }

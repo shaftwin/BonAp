@@ -22,10 +22,12 @@
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="drawer_profile_image_desc">Profil pic</string>
-    <string name="title_activity_category">Categories</string>
-    <string name="title_activity_category_item">Category</string>
     <string name="title_activity_settings">Settings</string>
     <string name="pref_logout_string">Logout</string>
     <string name="pref_logout_summary_string">Delete all cached user data</string>
+    <string name="title_activity_receipts_item">Recipe</string>
+    <string name="title_activity_recipe">Receipts</string>
+    <string name="title_activity_receipts">Receipts</string>
+    <string name="title_activity_categories">Categories</string>
 
 </resources>

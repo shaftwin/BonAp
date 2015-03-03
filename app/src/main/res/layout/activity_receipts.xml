@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@+id/actionBarToolbar"
-    tools:context="com.example.shaft.bonap.CategoryActivity">
+    tools:context="com.example.shaft.bonap.ReceiptsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

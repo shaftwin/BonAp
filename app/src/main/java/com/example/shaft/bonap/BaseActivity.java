@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.ImageView;
 
@@ -135,7 +134,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
     protected void goToNavDrawerItem(int position, final int tabId) {
         switch (position) {
             case CATEGORY_ID:
-                startActivity(new Intent(this, CategoryActivity.class));
+                startActivity(new Intent(this,CategoriesActivity.class));
                 finish();
                 break;
             case SETTINGS_ID:
