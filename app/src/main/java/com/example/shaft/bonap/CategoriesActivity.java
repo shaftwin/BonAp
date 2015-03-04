@@ -28,8 +28,13 @@ public class CategoriesActivity extends BaseActivity {
         setSupportActionBar(getActionBarToolbar());
 
         gridView = (GridView) findViewById(R.id.gridview);
+        int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
 
+        int iImageWidth = iDisplayWidth
+                / 2;
+        gridView.setColumnWidth( iImageWidth );
         gridView.setAdapter(new ImageAdapter(this, CATEGORIES));
+        gridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,

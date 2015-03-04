@@ -18,12 +18,14 @@ public class ImageAdapter extends BaseAdapter {
     private Context context;
     private final String[] mobileValues;
     LayoutInflater inflater;
+    private final LayoutInflater mInflater;
 
     public ImageAdapter(Context context, String[] mobileValues) {
         this.context = context;
         this.mobileValues = mobileValues;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = LayoutInflater.from(context);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -32,7 +34,6 @@ public class ImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            gridView = new View(context);
 
             gridView = inflater.inflate(R.layout.category_block, null);
             ImageView imageView = (ImageView) gridView
