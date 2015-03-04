@@ -22,6 +22,7 @@
         <activity android:name=".ReceiptsItemActivity"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".CategoriesActivity"/>
+        <activity android:name=".ProfilActivity"/>
     </application>
 
 </manifest>

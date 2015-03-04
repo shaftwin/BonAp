@@ -23,13 +23,13 @@ import java.util.List;
 
 public class BaseActivity extends ActionBarActivity implements DrawerAdapter.ClickListener {
 
-
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private Toolbar toolbar;
     private ImageView profileImage;
     private Handler mHandler;
     private static final int CATEGORY_ID = 1;
+    private static final int PROFIL_ID = 2;
     private static final int SETTINGS_ID = 3;
     private RecyclerViewScrollListener recyclerScrollListener;
 
@@ -135,6 +135,10 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         switch (position) {
             case CATEGORY_ID:
                 startActivity(new Intent(this,CategoriesActivity.class));
+                finish();
+                break;
+            case PROFIL_ID:
+                startActivity(new Intent(this,ProfilActivity.class));
                 finish();
                 break;
             case SETTINGS_ID:

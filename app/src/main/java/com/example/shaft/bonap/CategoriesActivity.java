@@ -13,7 +13,7 @@ import android.widget.Toast;
  */
 public class CategoriesActivity extends BaseActivity {
 
-    private int Category_ID = 1;
+    private int CATEGORY_ID = 1;
 
     static final String[] CATEGORIES = new String[]{
             "meat", "fish", "vegetarian", "dessert", "ingredients"};
@@ -47,6 +47,6 @@ public class CategoriesActivity extends BaseActivity {
     }
 
     protected int getSelfNavDrawerItem() {
-        return Category_ID;
+        return CATEGORY_ID;
     }
 }
