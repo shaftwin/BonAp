@@ -8,6 +8,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Shaft on 03/03/2015.
  */
@@ -15,9 +18,9 @@ public class CategoriesActivity extends BaseActivity {
 
     private int CATEGORY_ID = 1;
 
-    static final String[] CATEGORIES = new String[]{
-            "meat", "fish", "vegetarian", "dessert", "ingredients"};
+    private GridViewAdapter mEventsGridAdapter;
     private GridView gridView;
+    private List<Category> categories = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +30,35 @@ public class CategoriesActivity extends BaseActivity {
         getActionBarToolbar().setTitle(R.string.title_activity_receipts);
         setSupportActionBar(getActionBarToolbar());
 
+        Category meat = new Category();
+        meat.title = "meat";
+        meat.categoryPic = R.drawable.meat;
+
+        Category fish = new Category();
+        fish.title = "fish";
+        fish.categoryPic = R.drawable.fish;
+
+        Category dessert = new Category();
+        dessert.title = "dessert";
+        dessert.categoryPic = R.drawable.dessert;
+
+        Category vegetarian = new Category();
+        vegetarian.title = "vegetarian";
+        vegetarian.categoryPic = R.drawable.vegetarian;
+
+        Category ingredients = new Category();
+        ingredients.title = "ingredients";
+        ingredients.categoryPic = R.drawable.ingredients;
+
+        categories.add(meat);
+        categories.add(fish);
+        categories.add(dessert);
+        categories.add(vegetarian);
+        categories.add(ingredients);
+
         gridView = (GridView) findViewById(R.id.gridview);
-        int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
+        gridView.setAdapter(new GridViewAdapter(this, categories));
 
-        int iImageWidth = iDisplayWidth
-                / 2;
-        gridView.setColumnWidth( iImageWidth );
-        gridView.setAdapter(new ImageAdapter(this, CATEGORIES));
-        gridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ReceiptsActivity.class);
-                intent.putExtra("type", CATEGORIES[position]);
-                startActivity(intent);
-            }
-        });
     }
 
     protected int getSelfNavDrawerItem() {

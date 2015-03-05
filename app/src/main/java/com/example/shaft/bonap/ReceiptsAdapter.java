@@ -14,11 +14,11 @@ import java.util.List;
  * Created by Shaft on 03/03/2015.
  */
 public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyViewHolder> {
-    private List<Receipts> events;
+    private List<Recipe> events;
     private LayoutInflater inflater;
     private ClickListener clickListener;
 
-    public ReceiptsAdapter(Context context, List<Receipts> events) {
+    public ReceiptsAdapter(Context context, List<Recipe> events) {
         inflater = LayoutInflater.from(context);
         this.events = events;
     }

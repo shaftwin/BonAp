@@ -8,4 +8,5 @@
     <dimen name="keyline_1">16dp</dimen>
     <dimen name="small_magin">2dp</dimen>
     <dimen name="pic_title_size">120dp</dimen>
+    <dimen name="item_image_height">200dp</dimen>
 </resources>

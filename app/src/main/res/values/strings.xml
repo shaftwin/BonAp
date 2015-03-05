@@ -31,5 +31,8 @@
     <string name="title_activity_categories">Categories</string>
     <string name="profile_account_icon">Icon Account</string>
     <string name="profile_image_desc">Profil Pic</string>
+    <string name="grid_image_desc">Item Image</string>
+    <string name="list_ingredients">Ingredients List</string>
+    <string name="title_activity_list_ingredients">List Ingredients</string>
 
 </resources>

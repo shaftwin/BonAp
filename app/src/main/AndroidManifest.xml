@@ -23,6 +23,7 @@
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".CategoriesActivity"/>
         <activity android:name=".ProfilActivity"/>
+        <activity android:name=".ListIngredientsActivity"/>
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@
                 android:paddingRight="@dimen/small_magin">
 
                 <ImageView
-                    android:id="@+id/categorie_title_pic"
+                    android:id="@+id/recipe_title_pic"
                     android:layout_width="@dimen/pic_title_size"
                     android:layout_height="@dimen/pic_title_size"
                     android:layout_gravity="center"
@@ -40,7 +40,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/category_title"
+                        android:id="@+id/recipe_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -53,7 +53,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/category_desc"
+                android:id="@+id/recipe_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,6 +64,12 @@
                 android:textStyle="bold" />
             <!-- android:fontFamily="@string/font_fontFamily_medium" -->
 
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredients"
+                android:hint="@string/list_ingredients"/>
 
         </LinearLayout>
 

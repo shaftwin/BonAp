@@ -2,13 +2,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--
     <com.example.shaft.bonap.SquareImageView
         android:id="@+id/grid_item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/df" />
+        android:src="@drawable/df" /> -->
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_image_height"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/grid_image_desc" />
 
     <TextView
         android:id="@+id/grid_item_label"
