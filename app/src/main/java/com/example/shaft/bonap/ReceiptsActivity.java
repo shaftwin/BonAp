@@ -76,7 +76,21 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "3 gros œufs\n" +
                 "15 cl de crème fraîche\n" +
                 "Sel et poivre noir du moulin";
+        r0.str_ings.add("Spaghetti");
+        r0.str_ings.add("Parmesan râpé");
+        r0.str_ings.add("Poitrine fumée en tranches");
+        r0.str_ings.add("Beurre");
+        r0.str_ings.add("Gros œufs");
+        r0.str_ings.add("Crème Fraîche");
+        r0.str_ings.add("Poivre noir du moulin");
         r0.recipePic = R.drawable.patte;
+        r0.ings.add(Ing.SPAGHETTI);
+        r0.ings.add(Ing.POITRINE_FUMEE_EN_TRANCHES);
+        r0.ings.add(Ing.PARMESAN_RAPE);
+        r0.ings.add(Ing.BEURRE);
+        r0.ings.add(Ing.GROS_ŒUFS);
+        r0.ings.add(Ing.CREME_FRAÎCHE);
+        r0.ings.add(Ing.SEL_ET_POIVRE_NOIR);
         Recipe r1 = new Recipe();
         r1.type = "meat";
         r1.title = "Tartiflette ";
@@ -96,6 +110,17 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "- 40 cl d'Apremont ou autre blanc de Savoie sec (facultatif, mais donne plus de goût)\n" +
                 "- 1 pincée de sel\n" +
                 "- 1 pincée de poivre";
+        r1.str_ings.add("Reblochon");
+        r1.str_ings.add("Jambon fumé");
+        r1.str_ings.add("Oignons");
+        r1.str_ings.add("Apremont");
+        r1.str_ings.add("Poivre noir du moulin");
+        r1.ings.add(Ing.REBLOCHON);
+        r1.ings.add(Ing.JAMBON);
+        r1.ings.add(Ing.POMMES_DE_TERRE);
+        r1.ings.add(Ing.OIGNONS);
+        r1.ings.add(Ing.APREMONT);
+        r1.ings.add(Ing.SEL_ET_POIVRE_NOIR);
         r1.recipePic = R.drawable.tartiflette;
         Recipe r2 = new Recipe();
         r2.type = "fish";
@@ -110,6 +135,12 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
         r2.ingredients = "8 noix de saint Jacques\n" +
                 "100 g de foie gras\n" +
                 "25 g de beurre";
+        r2.str_ings.add("Noix de saint Jacques");
+        r2.str_ings.add("Foie gras");
+        r2.str_ings.add("Beurre");
+        r2.ings.add(Ing.SAINT_JACQUES);
+        r2.ings.add(Ing.FOIE_GRAS);
+        r2.ings.add(Ing.BEURRE);
         r2.recipePic = R.drawable.saint;
         Recipe r3 = new Recipe();
         r3.type = "vegetarian";
@@ -125,6 +156,14 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "- 1,5 verre d'eau chaude\n" +
                 "- 1 cuillère à café pleine de sel\n" +
                 "- 1 cuillère à soupe d'huile d'olive";
+        r3.str_ings.add("Farine type 55");
+        r3.str_ings.add("Levure");
+        r3.str_ings.add("Poivre noir du moulin");
+        r3.str_ings.add("Huile d'olive");
+        r3.ings.add(Ing.FARINE_TYPE_55);
+        r3.ings.add(Ing.LEVURE);
+        r3.ings.add(Ing.SEL_ET_POIVRE_NOIR);
+        r3.ings.add(Ing.HUILE_OLIVE);
         r3.recipePic = R.drawable.pain;
         Recipe r4 = new Recipe();
         r4.type = "dessert";
@@ -147,6 +186,24 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "1/2 boîte d'ananas en tranches\n" +
                 "3 bananes\n" +
                 "le jus d'un 1/2 citron";
+        r4.str_ings.add("Chocolat");
+        r4.str_ings.add("Crème liquide");
+        r4.str_ings.add("Lait");
+        r4.str_ings.add("Beurre");
+        r4.str_ings.add("Vanille en poudre");
+        r4.str_ings.add("Brioche");
+        r4.str_ings.add("Ananas");
+        r4.str_ings.add("Bananes");
+        r4.str_ings.add("Citron");
+        r4.ings.add(Ing.CHOCOLAT);
+        r4.ings.add(Ing.CREME_FRAÎCHE);
+        r4.ings.add(Ing.LAIT);
+        r4.ings.add(Ing.BEURRE);
+        r4.ings.add(Ing.VANILLE_EN_POUDRE);
+        r4.ings.add(Ing.BRIOCHE);
+        r4.ings.add(Ing.ANANAS);
+        r4.ings.add(Ing.BANANES);
+        r4.ings.add(Ing.CITRON);
         r4.recipePic = R.drawable.fondue;
         list.add(r0);
         list.add(r1);

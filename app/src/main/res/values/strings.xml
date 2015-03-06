@@ -4,6 +4,7 @@
     <string-array name="drawer_strings">
         <item>Categories</item>
         <item>Map</item>
+        <item>Panier</item>
         <item>Profil</item>
         <item>Preferences</item>
     </string-array>
@@ -34,5 +35,10 @@
     <string name="grid_image_desc">Item Image</string>
     <string name="list_ingredients">Ingredients List</string>
     <string name="title_activity_list_ingredients">List Ingredients</string>
+    <string name="cmd">Commander</string>
+    <string name="title_activity_command">Order</string>
+    <string name="order">Order</string>
+    <string name="qt">Quantity</string>
+    <string name="title_activity_panier">Panier</string>
 
 </resources>

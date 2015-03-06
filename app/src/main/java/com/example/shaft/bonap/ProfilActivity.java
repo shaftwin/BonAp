@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
  * Created by Shaft on 04/03/2015.
  */
 public class ProfilActivity extends BaseActivity {
-    private static final int PROFIL_ID = 2;
+    private static final int PROFIL_ID = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

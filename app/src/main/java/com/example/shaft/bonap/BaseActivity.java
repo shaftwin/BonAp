@@ -17,10 +17,48 @@ import android.widget.ImageView;
 
 import com.example.shaft.bonap.Drawer.DrawerAdapter;
 import com.example.shaft.bonap.Drawer.DrawerRawInfo;
+import com.iainconnor.objectcache.CacheManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+enum Ing {
+    SPAGHETTI,
+    PARMESAN_RAPE,
+    POITRINE_FUMEE_EN_TRANCHES,
+    JAMBON,
+    BEURRE,
+    GROS_ŒUFS,
+    CREME_FRAÎCHE,
+    SEL_ET_POIVRE_NOIR,
+    REBLOCHON,
+    POMMES_DE_TERRE,
+    OIGNONS,
+    APREMONT,
+    CHOCOLAT,
+    CRÈME_LIQUIDE,
+    LAIT,
+    VANILLE_EN_POUDRE,
+    BRIOCHE,
+    ANANAS,
+    BANANES,
+    CITRON,
+    SAINT_JACQUES,
+    FOIE_GRAS,
+    FARINE_TYPE_55,
+    LEVURE,
+    HUILE_OLIVE
+}
+
+enum IngType {
+    BUTCHER,
+    FISHMONGER,
+    GREENGROCER,
+    CHOCOLATIER,
+    BAKERY,
+    CHEESESHOP,
+    GROCERY
+}
 
 public class BaseActivity extends ActionBarActivity implements DrawerAdapter.ClickListener {
 
@@ -29,15 +67,17 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
     private Toolbar toolbar;
     private ImageView profileImage;
     private Handler mHandler;
-    private static final int CATEGORY_ID = 1;
-    private static final int PROFIL_ID = 2;
-    private static final int SETTINGS_ID = 3;
+    private static final int CATEGORY_ID = 0;
+    private static final int PANIER_ID = 2;
+    private static final int PROFIL_ID = 3;
+    private static final int SETTINGS_ID = 4;
     private RecyclerViewScrollListener recyclerScrollListener;
+    private CacheManager mCacheManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_base);
+        mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
         mHandler = new Handler();
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -68,7 +108,6 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         });
 
         profileImage = (ImageView) findViewById(R.id.profile_image);
-        //setImageProfileClickListener(MySharedPreferences.readToPreferences(this, "userLogin", ""));
         profileImage.setImageResource(R.drawable.profile);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.drawer_recycler);
@@ -140,6 +179,10 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
                 break;
             case PROFIL_ID:
                 startActivity(new Intent(this,ProfilActivity.class));
+                finish();
+                break;
+            case PANIER_ID:
+                startActivity(new Intent(this,PanierActivity.class));
                 finish();
                 break;
             case SETTINGS_ID:

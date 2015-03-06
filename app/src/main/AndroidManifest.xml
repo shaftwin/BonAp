@@ -3,6 +3,7 @@
     package="com.example.shaft.bonap" >
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -24,6 +25,8 @@
         <activity android:name=".CategoriesActivity"/>
         <activity android:name=".ProfilActivity"/>
         <activity android:name=".ListIngredientsActivity"/>
+        <activity android:name=".OrderActivity"/>
+        <activity android:name=".PanierActivity"/>
     </application>
 
 </manifest>

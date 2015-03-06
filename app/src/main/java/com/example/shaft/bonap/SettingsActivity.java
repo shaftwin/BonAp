@@ -1,5 +1,6 @@
 package com.example.shaft.bonap;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.LruCache;
 import android.view.View;
+
+import com.iainconnor.objectcache.DiskCache;
 
 /**
  * Created by Shaft on 03/03/2015.

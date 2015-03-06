@@ -11,34 +11,34 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Shaft on 03/03/2015.
+ * Created by Shaft on 06/03/2015.
  */
-public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyViewHolder> {
-    private List<Recipe> receipts;
+public class PanierAdapter extends RecyclerView.Adapter<PanierAdapter.MyViewHolder> {
+    private List<UnitPanier> unitPanier;
     private LayoutInflater inflater;
     private ClickListener clickListener;
 
-    public ReceiptsAdapter(Context context, List<Recipe> receipts) {
+    public PanierAdapter(Context context, List<UnitPanier> unitPanier) {
         inflater = LayoutInflater.from(context);
-        this.receipts = receipts;
+        this.unitPanier = unitPanier;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.category_row, viewGroup, false);
+        View view = inflater.inflate(R.layout.panier_row, viewGroup, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.title.setText(receipts.get(i).title);
-        myViewHolder.description.setText(receipts.get(i).description);
-        myViewHolder.title_pic.setImageResource(receipts.get(i).recipePic);
+        myViewHolder.title.setText(unitPanier.get(i).ingredients);
+        myViewHolder.qt.setText(unitPanier.get(i).ingredients_qt);
+        myViewHolder.merchant.setText(unitPanier.get(i).merchants);
     }
 
     @Override
     public int getItemCount() {
-        return receipts.size();
+        return unitPanier.size();
     }
 
     public void setClickListener(ClickListener clickListener) {
@@ -51,15 +51,15 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
-        TextView description;
-        ImageView title_pic;
+        TextView qt;
+        TextView merchant;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            title = (TextView) itemView.findViewById(R.id.recipe_title);
-            description = (TextView) itemView.findViewById(R.id.description);
-            title_pic = ((ImageView) itemView.findViewById(R.id.title_pic));
+            title = (TextView) itemView.findViewById(R.id.ing_title);
+            qt = (TextView) itemView.findViewById(R.id.ing_qt);
+            merchant = ((TextView) itemView.findViewById(R.id.merchant));
         }
 
         @Override
