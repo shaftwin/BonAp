@@ -68,6 +68,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
     private ImageView profileImage;
     private Handler mHandler;
     private static final int CATEGORY_ID = 0;
+    private static final int MAP_ID = 1;
     private static final int PANIER_ID = 2;
     private static final int PROFIL_ID = 3;
     private static final int SETTINGS_ID = 4;
@@ -130,7 +131,6 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
                 R.drawable.ic_settings_grey,
                 R.drawable.ic_settings_grey};
         String[] titles = context.getResources().getStringArray(R.array.drawer_strings);
-
         for (int i = 0; i < titles.length && i < icons.length; i++) {
             DrawerRawInfo current = new DrawerRawInfo();
             current.title = titles[i];
@@ -164,6 +164,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
     }
 
     protected int getSelfNavDrawerItem() {
+        Log.d("ITE", "ITE");
         return 0;
     }
 
@@ -175,6 +176,10 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         switch (position) {
             case CATEGORY_ID:
                 startActivity(new Intent(this,CategoriesActivity.class));
+                finish();
+                break;
+            case MAP_ID:
+                startActivity(new Intent(this, MapActivity.class));
                 finish();
                 break;
             case PROFIL_ID:

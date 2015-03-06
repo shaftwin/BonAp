@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CategoriesActivity extends BaseActivity {
 
-    private int CATEGORY_ID = 1;
+    private int CATEGORY_ID = 0;
 
     private GridViewAdapter mEventsGridAdapter;
     private GridView gridView;

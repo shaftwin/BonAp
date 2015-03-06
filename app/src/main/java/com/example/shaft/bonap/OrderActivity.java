@@ -14,9 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.iainconnor.objectcache.CacheManager;
+import com.iainconnor.objectcache.GetCallback;
 import com.iainconnor.objectcache.PutCallback;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +46,7 @@ public class OrderActivity extends BaseActivity {
         recipe = (Recipe) getIntent().getSerializableExtra("item");
         createMarchants(merchants);
 
-        LinearLayout parent = ((LinearLayout)findViewById(R.id.content));
+        LinearLayout parent = ((LinearLayout) findViewById(R.id.content));
         for (int i = 0; i < recipe.ings.size(); i++) {
             List<String> m = new ArrayList<String>();
             View r = LayoutInflater.from(getBaseContext()).inflate(R.layout.order_elem, parent, false);
@@ -65,17 +68,46 @@ public class OrderActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 savePanier(p);
-                mCacheManager.putAsync("panier", p, new PutCallback() {
+                //GET TO SEE IF PANIER ALREADY EXIST
+                Type type = new TypeToken<Panier>() {
+                }.getType();
+                mCacheManager.getAsync("panier", Panier.class, type, new GetCallback() {
                     @Override
-                    public void onSuccess() {
-                        startActivity(new Intent(OrderActivity.this, PanierActivity.class));
+                    public void onSuccess(Object savePanier) {
+                        if (savePanier != null) {
+                            Panier p2 = (Panier) savePanier;
+
+                            if (p2.ingredients.size() > 0)
+                                for (int i = 0; i < p2.ingredients.size(); ++i) {
+                                    UnitPanier up = new UnitPanier();
+                                    p.ingredients.add(p2.ingredients.get(i));
+                                    p.ingredients_qt.add(p2.ingredients_qt.get(i));
+                                    p.merchants.add(p2.merchants.get(i));
+                                }
+                        } else {
+                            Toast.makeText(OrderActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
+                        }
+                        mCacheManager.putAsync("panier", p, new PutCallback() {
+                            @Override
+                            public void onSuccess() {
+                                startActivity(new Intent(OrderActivity.this, PanierActivity.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(OrderActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(OrderActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "ERREUR PANIER", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
             }
         });
     }
@@ -99,7 +131,7 @@ public class OrderActivity extends BaseActivity {
         for (int i = 0; i < merchants.size(); ++i) {
             for (int j = 0; j < merchants.get(i).ings.size(); ++j)
                 if (recipe.ings.get(ite) == merchants.get(i).ings.get(j))
-                       m.add(merchants.get(i).name);
+                    m.add(merchants.get(i).name);
         }
     }
 
