@@ -1,7 +1,9 @@
 package com.example.shaft.bonap;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,15 +41,25 @@ public class OrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        getActionBarToolbar().setTitle(R.string.title_activity_command);
         setSupportActionBar(getActionBarToolbar());
 
+        getActionBarToolbar().setTitle(R.string.title_activity_command);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((Toolbar) findViewById(R.id.actionBarToolbar)).setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+        final String username = prefs.getString("username", null);
         mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
         recipe = (Recipe) getIntent().getSerializableExtra("item");
         createMarchants(merchants);
 
         LinearLayout parent = ((LinearLayout) findViewById(R.id.content));
-        for (int i = 0; i < recipe.ings.size(); i++) {
+        for (int i = 0; i < recipe.str_ings.size(); i++) {
             List<String> m = new ArrayList<String>();
             View r = LayoutInflater.from(getBaseContext()).inflate(R.layout.order_elem, parent, false);
             lv.add(r);
@@ -71,7 +83,7 @@ public class OrderActivity extends BaseActivity {
                 //GET TO SEE IF PANIER ALREADY EXIST
                 Type type = new TypeToken<Panier>() {
                 }.getType();
-                mCacheManager.getAsync("panier", Panier.class, type, new GetCallback() {
+                mCacheManager.getAsync(username, Panier.class, type, new GetCallback() {
                     @Override
                     public void onSuccess(Object savePanier) {
                         if (savePanier != null) {
@@ -87,7 +99,7 @@ public class OrderActivity extends BaseActivity {
                         } else {
                             Toast.makeText(OrderActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
                         }
-                        mCacheManager.putAsync("panier", p, new PutCallback() {
+                        mCacheManager.putAsync(username, p, new PutCallback() {
                             @Override
                             public void onSuccess() {
                                 startActivity(new Intent(OrderActivity.this, PanierActivity.class));

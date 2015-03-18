@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -25,8 +26,16 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
 
         String type = (String) getIntent().getSerializableExtra("type");
 
-        getActionBarToolbar().setTitle(type);
         setSupportActionBar(getActionBarToolbar());
+        getActionBarToolbar().setTitle(type);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((Toolbar) findViewById(R.id.actionBarToolbar)).setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.board_recycler);
         mReceiptsAdapter = new ReceiptsAdapter(this, adapterData);
@@ -107,9 +116,9 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "1,2 kg de pommes de terre\n" +
                 "1 tranche de jambon fumé coupée en dés (ou bien des lardons ou des dés de bacon)\n" +
                 "500 g d'oignons\n" +
-                "- 40 cl d'Apremont ou autre blanc de Savoie sec (facultatif, mais donne plus de goût)\n" +
-                "- 1 pincée de sel\n" +
-                "- 1 pincée de poivre";
+                "40 cl d'Apremont ou autre blanc de Savoie sec (facultatif, mais donne plus de goût)\n" +
+                "1 pincée de sel\n" +
+                "1 pincée de poivre";
         r1.str_ings.add("Reblochon");
         r1.str_ings.add("Jambon fumé");
         r1.str_ings.add("Oignons");
@@ -152,10 +161,10 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "Pendant ce temps-là, préchauffez le four à thermostat 7 ou à 220°C pendant 20 mn environ.\n" +
                 "Enfournez pendant 40 mn.";
         r3.ingredients = "500 g de farine type 55\n" +
-                "- 1 sachet de levure de boulangerie en granulés à temps de levée réduite\n" +
-                "- 1,5 verre d'eau chaude\n" +
-                "- 1 cuillère à café pleine de sel\n" +
-                "- 1 cuillère à soupe d'huile d'olive";
+                "1 sachet de levure de boulangerie en granulés à temps de levée réduite\n" +
+                "1,5 verre d'eau chaude\n" +
+                "1 cuillère à café pleine de sel\n" +
+                "1 cuillère à soupe d'huile d'olive";
         r3.str_ings.add("Farine type 55");
         r3.str_ings.add("Levure");
         r3.str_ings.add("Poivre noir du moulin");

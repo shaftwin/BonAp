@@ -17,40 +17,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="140dp"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/small_magin"
-                android:paddingRight="@dimen/small_magin">
+            <ImageView
+                android:id="@+id/recipe_title_pic"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center" />
 
-                <ImageView
-                    android:id="@+id/recipe_title_pic"
-                    android:layout_width="@dimen/pic_title_size"
-                    android:layout_height="@dimen/pic_title_size"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/small_magin" />
-
-                <LinearLayout
-                    android:id="@+id/text_container"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/small_magin"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/recipe_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-                    <!-- android:fontFamily="@string/font_fontFamily_medium" -->
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/recipe_desc"
@@ -59,17 +40,18 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/small_magin"
                 android:layout_marginRight="@dimen/small_magin"
-                android:layout_marginTop="@dimen/small_magin"
+                android:layout_marginBottom="10dp"
                 android:textSize="15dp"
                 android:textStyle="bold" />
             <!-- android:fontFamily="@string/font_fontFamily_medium" -->
 
 
             <Button
+                android:id="@+id/ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ingredients"
-                android:hint="@string/list_ingredients"/>
+                android:hint="@string/list_ingredients"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 

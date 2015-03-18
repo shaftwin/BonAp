@@ -1,6 +1,7 @@
 package com.example.shaft.bonap;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.iainconnor.objectcache.CacheManager;
 import com.iainconnor.objectcache.GetCallback;
+import com.iainconnor.objectcache.PutCallback;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -52,14 +54,15 @@ public class PanierActivity extends BaseActivity implements PanierAdapter.ClickL
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+        final String username = prefs.getString("username", null);
         mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
         mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
-        mCacheManager.getAsync("panier", Panier.class, type, new GetCallback() {
+        mCacheManager.getAsync(username, Panier.class, type, new GetCallback() {
             @Override
             public void onSuccess(Object savePanier) {
                 if (savePanier != null) {
                     p = (Panier) savePanier;
-                    Toast.makeText(getApplicationContext(), "WIN PANIER", Toast.LENGTH_SHORT).show();
 
                     for (int i = 0; i < p.ingredients.size(); ++i) {
                         UnitPanier up = new UnitPanier();
@@ -77,13 +80,59 @@ public class PanierActivity extends BaseActivity implements PanierAdapter.ClickL
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(getApplicationContext(), "ERREUR PANIER", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "NO PANIER", Toast.LENGTH_SHORT).show();
             }
         });
+
+        findViewById(R.id.send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapterData.isEmpty()) {
+                    Toast.makeText(PanierActivity.this, "Nothing to Send", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                adapterData.clear();
+                p.ingredients.clear();
+                p.merchants.clear();
+                p.ingredients_qt.clear();
+                SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+                final String username = prefs.getString("username", null);
+                mCacheManager.putAsync(username, p, new PutCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(PanierActivity.this, "Sending Order", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(PanierActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                mPanierAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
-    public void reserchItemClicked(int position) {
+    public void suppItemClicked(int position) {
+        adapterData.remove(position);
+        p.ingredients.remove(position);
+        p.merchants.remove(position);
+        p.ingredients_qt.remove(position);
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+        final String username = prefs.getString("username", null);
+        mCacheManager.putAsync(username, p, new PutCallback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(PanierActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mPanierAdapter.notifyItemRemoved(position);
     }
 
     protected int getSelfNavDrawerItem() {

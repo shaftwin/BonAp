@@ -32,7 +32,6 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
         myViewHolder.title.setText(receipts.get(i).title);
-        myViewHolder.description.setText(receipts.get(i).description);
         myViewHolder.title_pic.setImageResource(receipts.get(i).recipePic);
     }
 
@@ -51,14 +50,12 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
-        TextView description;
         ImageView title_pic;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             title = (TextView) itemView.findViewById(R.id.recipe_title);
-            description = (TextView) itemView.findViewById(R.id.description);
             title_pic = ((ImageView) itemView.findViewById(R.id.title_pic));
         }
 

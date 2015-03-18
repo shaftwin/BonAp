@@ -9,19 +9,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:background="?android:selectableItemBackground"
         android:gravity="start|center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/small_magin"
-        android:paddingLeft="@dimen/small_magin"
-        android:paddingRight="@dimen/small_magin">
-
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="140dp"
-            android:layout_marginTop="@dimen/small_magin"
             android:orientation="horizontal">
 
             <ImageView
@@ -44,32 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-
                     android:textSize="18dp"
                     android:textStyle="bold" />
-                <!-- android:fontFamily="@string/font_fontFamily_medium" -->
-
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/small_magin"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
-                <!-- android:fontFamily="@string/font_fontFamily_medium" -->
-
-                <TextView
-                    android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/small_magin"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
-                <!-- android:fontFamily="@string/font_fontFamily_medium" -->
-
-
 
             </LinearLayout>
         </LinearLayout>

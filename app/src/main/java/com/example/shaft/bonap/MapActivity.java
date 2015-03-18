@@ -1,5 +1,7 @@
 package com.example.shaft.bonap;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -8,12 +10,20 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,6 +38,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
 
     private static final int MAP_ID = 1;
     private GoogleMap gMap;
+    GoogleMapOptions options = new GoogleMapOptions();
     private List<Merchant> merchants = new ArrayList<Merchant>();
     private Location location;
     LocationManager locationManager;
@@ -38,9 +49,47 @@ public class MapActivity extends BaseActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        final Button infos = ((Button) findViewById(R.id.infos));
+        infos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater layoutInflater
+                        = (LayoutInflater) getBaseContext()
+                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = layoutInflater.inflate(R.layout.popup, null);
+                final PopupWindow popupWindow = new PopupWindow(
+                        popupView,
+                       500,
+                        1050);
+
+                Button btnDismiss = (Button) popupView.findViewById(R.id.dismiss);
+                btnDismiss.setOnClickListener(new Button.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        // TODO Auto-generated method stub
+                        popupWindow.dismiss();
+                    }
+                });
+                ((ImageView) popupView.findViewById(R.id.color1)).setBackgroundColor(Color.rgb(255, 0, 0));
+                ((ImageView) popupView.findViewById(R.id.color2)).setBackgroundColor(Color.rgb(0, 255, 255));
+                ((ImageView) popupView.findViewById(R.id.color3)).setBackgroundColor(Color.rgb(0, 255, 0));
+                ((ImageView) popupView.findViewById(R.id.color4)).setBackgroundColor(Color.rgb(255, 165, 0));
+                ((ImageView) popupView.findViewById(R.id.color5)).setBackgroundColor(Color.rgb(255, 255, 0));
+                ((ImageView) popupView.findViewById(R.id.color6)).setBackgroundColor(Color.rgb(255, 0, 255));
+                popupWindow.showAsDropDown(infos, 50, -30);
+
+            }
+        });
+
+
+
+        options.mapType(GoogleMap.MAP_TYPE_SATELLITE)
+                .compassEnabled(false);
         gMap = ((MapFragment) getFragmentManager().findFragmentById(
                 R.id.mapView)).getMap();
         gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
 
             // Use default InfoWindow frame
             @Override
@@ -58,7 +107,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
                 while (!Character.isDigit(test.charAt(i))) i++;
                 int j = i;
                 while (j < test.length() && Character.isDigit(test.charAt(j))) j++;
-                int ite =  Integer.parseInt(test.substring(i, j));
+                int ite = Integer.parseInt(test.substring(i, j));
                 TextView name = (TextView) v.findViewById(R.id.mer_name);
                 name.setText(merchants.get(ite).name);
                 TextView adress = (TextView) v.findViewById(R.id.adress);
@@ -68,8 +117,6 @@ public class MapActivity extends BaseActivity implements LocationListener {
 
             }
         });
-
-
 
 
         gMap.setMyLocationEnabled(true);
@@ -94,16 +141,18 @@ public class MapActivity extends BaseActivity implements LocationListener {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            LatLng latLng = new LatLng(latitude, longitude);
 
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-        locationManager.requestLocationUpdates(provider, 1, 0, this);
+            gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            locationManager.requestLocationUpdates(provider, 1, 0, this);
+        }
         createMarchants(merchants);
         for (int i = 0; i < merchants.size(); ++i) {
-            setMarkerFromAdd(merchants.get(i).adress);
+            setMarkerFromAdd(merchants.get(i).adress, merchants.get(i).type);
         }
     }
 
@@ -140,7 +189,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
         return MAP_ID;
     }
 
-    public void setMarkerFromAdd(String strAddress) {
+    public void setMarkerFromAdd(String strAddress, IngType type) {
 
         gMap = ((MapFragment) getFragmentManager().findFragmentById(
                 R.id.mapView)).getMap();
@@ -151,8 +200,30 @@ public class MapActivity extends BaseActivity implements LocationListener {
                 if (addresses.size() > 0) {
                     double latitude = addresses.get(0).getLatitude();
                     double longitude = addresses.get(0).getLongitude();
-                    gMap.addMarker(new MarkerOptions().position(new LatLng(
-                            latitude, longitude)));
+                    if (type == IngType.BUTCHER)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    else if (type == IngType.FISHMONGER)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                    else if (type == IngType.GREENGROCER)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    else if (type == IngType.BAKERY)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    else if (type == IngType.CHEESESHOP)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                    else if (type == IngType.GROCERY)
+                        gMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
                 }
             }
         } catch (Exception e) {

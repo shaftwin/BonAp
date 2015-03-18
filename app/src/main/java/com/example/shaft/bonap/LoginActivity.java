@@ -1,11 +1,13 @@
 package com.example.shaft.bonap;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Shaft on 03/03/2015.
@@ -24,17 +26,11 @@ public class LoginActivity  extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.actionBarToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle(R.string.title_activity_login);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
         mLogin = (EditText) findViewById(R.id.login);
         mPassword = (EditText) findViewById(R.id.password);
+
 
         findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
 
@@ -42,6 +38,13 @@ public class LoginActivity  extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
+                if (mLogin.getText().toString().equals("")) {
+                    Toast.makeText(LoginActivity.this, "Login is needed", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
+                editor.putString("username", mLogin.getText().toString());
+                editor.commit();
                 Intent intent = new Intent(getApplicationContext(), CategoriesActivity.class);
                 startActivity(intent);
             }

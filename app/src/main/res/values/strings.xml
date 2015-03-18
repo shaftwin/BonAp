@@ -41,5 +41,6 @@
     <string name="qt">Quantity</string>
     <string name="title_activity_panier">Panier</string>
     <string name="sup">Sup</string>
+    <string name="infos">Infos</string>
 
 </resources>

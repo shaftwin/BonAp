@@ -125,10 +125,10 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         List<DrawerRawInfo> data = new ArrayList<>();
 
         int[] icons = {
-                R.drawable.ic_home_grey,
-                R.drawable.ic_assignment_grey,
-                R.drawable.ic_event_grey,
-                R.drawable.ic_settings_grey,
+                R.drawable.ic_list,
+                R.drawable.ic_map,
+                R.drawable.ic_panier,
+                R.drawable.ic_profil,
                 R.drawable.ic_settings_grey};
         String[] titles = context.getResources().getStringArray(R.array.drawer_strings);
         for (int i = 0; i < titles.length && i < icons.length; i++) {
@@ -164,7 +164,6 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
     }
 
     protected int getSelfNavDrawerItem() {
-        Log.d("ITE", "ITE");
         return 0;
     }
 
@@ -180,19 +179,19 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
                 break;
             case MAP_ID:
                 startActivity(new Intent(this, MapActivity.class));
-                finish();
+               // finish();
                 break;
             case PROFIL_ID:
                 startActivity(new Intent(this,ProfilActivity.class));
-                finish();
+                //finish();
                 break;
             case PANIER_ID:
                 startActivity(new Intent(this,PanierActivity.class));
-                finish();
+               // finish();
                 break;
             case SETTINGS_ID:
                 startActivity(new Intent(this, SettingsActivity.class));
-                finish();
+                //finish();
                 break;
         }
     }

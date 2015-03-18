@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Created by Shaft on 06/03/2015.
  */
+
 public class PanierAdapter extends RecyclerView.Adapter<PanierAdapter.MyViewHolder> {
     private List<UnitPanier> unitPanier;
     private LayoutInflater inflater;
@@ -31,16 +32,10 @@ public class PanierAdapter extends RecyclerView.Adapter<PanierAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
+    public void onBindViewHolder(final MyViewHolder myViewHolder, final int i) {
         myViewHolder.title.setText(unitPanier.get(i).ingredients);
         myViewHolder.qt.setText(unitPanier.get(i).ingredients_qt);
         myViewHolder.merchant.setText(unitPanier.get(i).merchants);
-        myViewHolder.supp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                unitPanier.remove(i);
-            }
-        });
     }
 
     @Override
@@ -53,7 +48,7 @@ public class PanierAdapter extends RecyclerView.Adapter<PanierAdapter.MyViewHold
     }
 
     public interface ClickListener {
-        public void reserchItemClicked(int position);
+        public void suppItemClicked(int position);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -69,12 +64,13 @@ public class PanierAdapter extends RecyclerView.Adapter<PanierAdapter.MyViewHold
             qt = (TextView) itemView.findViewById(R.id.ing_qt);
             merchant = ((TextView) itemView.findViewById(R.id.merchant));
             supp = (Button) itemView.findViewById(R.id.supp);
+            supp.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (clickListener != null) {
-                clickListener.reserchItemClicked(getPosition());
+                clickListener.suppItemClicked(getPosition());
             }
         }
     }
