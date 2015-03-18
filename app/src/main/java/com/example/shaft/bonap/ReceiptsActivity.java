@@ -24,6 +24,7 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipts);
 
+        //ON RECUPERE LE TYPE DES RECETTE A AFFICHER
         String type = (String) getIntent().getSerializableExtra("type");
 
         setSupportActionBar(getActionBarToolbar());
@@ -51,19 +52,24 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
             }
         });
 
+        //CREATION DE TOUTES LES RECETTES
         createReceipts(listReceipts);
 
+        //ON PARCOURS LA LISTE DES RECETTES ET ON REGARDE LE TYPE DE LA RECETTE ET S IL EST EGALE A CELUI ENVOYE PAR LIST CATEGORY ON STOCK LA RECETTE
         for (int i = 0; i < listReceipts.size(); ++i) {
             if (listReceipts.get(i).type.equals(type))
                 adapterData.add(listReceipts.get(i));
         }
+        //ON AFFICHE LES BONNES RECETTES
         mReceiptsAdapter.notifyDataSetChanged();
 
     }
 
+    //FONCTION APPELER QUAND ON CLICK SUR UNE RECETTE
     @Override
     public void reserchItemClicked(int position) {
         Intent intent = new Intent(this, ReceiptsItemActivity.class);
+        //ON ENVOIE LA RECETTE A LA PROCHAINE ACTIVITE
         intent.putExtra("item", adapterData.get(position));
         startActivity(intent);
     }

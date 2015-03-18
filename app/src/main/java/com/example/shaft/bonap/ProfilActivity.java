@@ -17,6 +17,7 @@ public class ProfilActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
+        //ON SET LES VALEUR DU NOM USER + MAIL
         ((TextView) findViewById(R.id.user_completename)).setText("Jean Moulin");
         Picasso.with(getApplicationContext())
                 .load(R.drawable.profile)

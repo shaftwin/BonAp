@@ -50,6 +50,7 @@ public class SettingsActivity extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
 
+            //ON QUITTE ICI ENN RELANCANT LOGIN ACTIVITY
             Preference mdeco = findPreference("deco_button");
             mdeco.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override

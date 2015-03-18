@@ -17,6 +17,9 @@ import java.util.List;
 /**
  * Created by Shaft on 05/03/2015.
  */
+
+//LES ADAPTERS SERVENT A GERER CHAQUE ITEM DE LA LISTE AFFICHE DANS LA GRILLE DE CATEGORY
+//POUR CHAQUE ELEMENT CREER L ADAPTER SET LES INFOS COMME TITRE ET PICTURE + ACTIVITE A APPELER QUAND ON CLICK SUR L ELEMENT
 public class GridViewAdapter extends BaseAdapter {
 
     private final Context mContext;
@@ -66,6 +69,7 @@ public class GridViewAdapter extends BaseAdapter {
             view = convertView;
         }
 
+        //SET ICI DES TITRES ET PICTURE POUR L ITEM
         TextView title = (TextView) view.getTag(R.id.grid_item_label);
         ImageView picture = (ImageView) view.getTag(R.id.item_image);
 

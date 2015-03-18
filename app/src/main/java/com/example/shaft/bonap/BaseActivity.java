@@ -22,6 +22,7 @@ import com.iainconnor.objectcache.CacheManager;
 import java.util.ArrayList;
 import java.util.List;
 
+//LIST DE TOUT LES INGREDIENTS 
 enum Ing {
     SPAGHETTI,
     PARMESAN_RAPE,
@@ -50,6 +51,7 @@ enum Ing {
     HUILE_OLIVE
 }
 
+//LIST DES TYPE DE MARCHANTS
 enum IngType {
     BUTCHER,
     FISHMONGER,
@@ -59,6 +61,11 @@ enum IngType {
     CHEESESHOP,
     GROCERY
 }
+
+//CLASS HERITE PAR TOUTES LES ACTIVITEES
+//ELLE SET LE DRAWER, LA TOOLBAR
+//DRAWER ==> ELLE EMPECHE DE RELANCER LA MEME ACTIVITE + ELLE SET LES IMAGES DU DRAWER + SET DES ACTIVITEES A LANCER GRACE AU DRAWER
+
 
 public class BaseActivity extends ActionBarActivity implements DrawerAdapter.ClickListener {
 
@@ -92,6 +99,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         setupDrawer();
     }
 
+    //SET LE DRAWER ICI
     protected void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout == null) {
@@ -121,6 +129,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    //SET IMAGES SUR LE DRAWER
     private static List<DrawerRawInfo> getDrawerData(Context context) {
         List<DrawerRawInfo> data = new ArrayList<>();
 
@@ -140,6 +149,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         return data;
     }
 
+    //FONCTION APPELE QUAND ON CLICK SUR UN LIEN DANS LE DRAWER
     @Override
     public void itemClicked(final int position) {
         if (position == getSelfNavDrawerItem()) {
@@ -167,6 +177,7 @@ public class BaseActivity extends ActionBarActivity implements DrawerAdapter.Cli
         return 0;
     }
 
+    //FONTION APPELE QUAND ON CLICK SUR UNE IMAGE DANS LE DRAWER + LANCE UNE ACTIVITEES EN REGARDANT L ID DU LIEN CLICKE
     private boolean isSpecialItem(int position) {
         return position == SETTINGS_ID;
     }

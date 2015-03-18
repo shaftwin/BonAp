@@ -21,6 +21,7 @@ public class ReceiptsItemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_item);
 
+        // ON RECUPERE LA RECETTE ENVOYER PAR L ACTIVITE PRECEDENTE
         recipe = (Recipe) getIntent().getSerializableExtra("item");
 
         setSupportActionBar(getActionBarToolbar());
@@ -33,7 +34,7 @@ public class ReceiptsItemActivity extends BaseActivity {
             }
         });
 
-
+        //SET INFOS A AFFICHER
         ((TextView) findViewById(R.id.recipe_title)).setText(recipe.title);
         ((TextView) findViewById(R.id.recipe_desc)).setText(recipe.description);
         Picasso.with(getApplicationContext())
@@ -41,10 +42,12 @@ public class ReceiptsItemActivity extends BaseActivity {
                 .centerCrop()
                 .fit()
                 .into((ImageView) findViewById(R.id.recipe_title_pic));
+        //ONCLICK LISTENER QUAND ON CLICK SUR LE BOUTON LIST INGREDIENT
         findViewById(R.id.ingredients).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ListIngredientsActivity.class);
+                //ON ENVOIE LA RECETTE A LA PROCHAINE ACTI
                 intent.putExtra("item", recipe);
                 startActivity(intent);
             }

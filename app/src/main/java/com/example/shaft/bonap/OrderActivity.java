@@ -52,19 +52,25 @@ public class OrderActivity extends BaseActivity {
             }
         });
 
+        //ON RECUPERE LE NOM MIT DANS LE LOGIN
         SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
         final String username = prefs.getString("username", null);
+
         mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
+       //RECUPERATION DE LA RECETTE
         recipe = (Recipe) getIntent().getSerializableExtra("item");
+        //CREATION DE TOUTS LES MARCHANTS
         createMarchants(merchants);
 
         LinearLayout parent = ((LinearLayout) findViewById(R.id.content));
+        //ICI ON CREER CHAQUE LIGNE DES INGREDIENTS COMPRENANT UN NOM UN EDIT TEXT POUR LA VALEUR ET UN SPINNER POUR LA LISTE DES MARCHANDS QUI VENDENT L INGREDIENT
         for (int i = 0; i < recipe.str_ings.size(); i++) {
             List<String> m = new ArrayList<String>();
             View r = LayoutInflater.from(getBaseContext()).inflate(R.layout.order_elem, parent, false);
             lv.add(r);
             ((TextView) r.findViewById(R.id.ingredient)).setText(recipe.str_ings.get(i));
 
+            //ON RECHERCHE LES MARCHANTS QUI POSSEDENT L INGREDIENT
             searchMerchants(m, i);
 
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
@@ -79,16 +85,19 @@ public class OrderActivity extends BaseActivity {
         ((Button) findViewById(R.id.order)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ON SAVE LE PANIER DANS P
                 savePanier(p);
-                //GET TO SEE IF PANIER ALREADY EXIST
+                //ON REGARDE SI LE PANIER DU USER EXISTE DEJA
                 Type type = new TypeToken<Panier>() {
                 }.getType();
                 mCacheManager.getAsync(username, Panier.class, type, new GetCallback() {
+                    //SI OUI IL EXISTE
                     @Override
                     public void onSuccess(Object savePanier) {
                         if (savePanier != null) {
                             Panier p2 = (Panier) savePanier;
 
+                            //ON SAVE DANS NOTRE PANIER P TOUS LES INGREDIENTS DE NOTRE ANCIEN PANIER P2
                             if (p2.ingredients.size() > 0)
                                 for (int i = 0; i < p2.ingredients.size(); ++i) {
                                     UnitPanier up = new UnitPanier();
@@ -99,9 +108,11 @@ public class OrderActivity extends BaseActivity {
                         } else {
                             Toast.makeText(OrderActivity.this, "ERREUR SUR PANIER", Toast.LENGTH_SHORT).show();
                         }
+                        //ET ON SAVE NOTRE NOUVEAU PANIER P2 DU USER
                         mCacheManager.putAsync(username, p, new PutCallback() {
                             @Override
                             public void onSuccess() {
+                                //ET ON LANCE L ACTIVITE PANIER
                                 startActivity(new Intent(OrderActivity.this, PanierActivity.class));
                                 finish();
                             }
@@ -115,7 +126,7 @@ public class OrderActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(getApplicationContext(), "ERREUR PANIER", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Panier Vide", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -124,11 +135,13 @@ public class OrderActivity extends BaseActivity {
         });
     }
 
+    //ICI ON REGARDE TOUT CE QUE LE USER A REMPLI DANS LES EDIT TEXT DU LAYOUT
     private void savePanier(Panier p) {
         TextView ing;
         String qt;
         Spinner s;
 
+        //ON REGARDE TOUTES LES LIGNES CREER UNE A UNE, ET POUR CHAQUE ELEMENT DONT L EDIT TEXT N EST PAS NUL ON SAVE L INGRDIENT DANS LE PANIER
         for (int i = 0; i < lv.size(); ++i) {
             qt = ((EditText) lv.get(i).findViewById(R.id.qt)).getText().toString();
             if (!qt.equals("")) {
@@ -140,9 +153,11 @@ public class OrderActivity extends BaseActivity {
     }
 
     private void searchMerchants(List<String> m, int ite) {
+        //ON PARCOURS LA LISTE DES MARCHANTS ET SI LE TYPE D INGREDIENT CORRESPOND ON STOCK LE MARCHANT DANS LA LIST
         for (int i = 0; i < merchants.size(); ++i) {
             for (int j = 0; j < merchants.get(i).ings.size(); ++j)
                 if (recipe.ings.get(ite) == merchants.get(i).ings.get(j))
+                    //STOCK ICI DANS LA LIST M
                     m.add(merchants.get(i).name);
         }
     }

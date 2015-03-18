@@ -20,6 +20,7 @@ public class ListIngredientsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_ingredients);
 
+        //RECUPERATION RECETTE
         recipe = (Recipe) getIntent().getSerializableExtra("item");
 
         setSupportActionBar(getActionBarToolbar());
@@ -32,7 +33,7 @@ public class ListIngredientsActivity extends BaseActivity {
             }
         });
 
-
+        //AFFICHAGE INFOS
         ((TextView) findViewById(R.id.list)).setText(recipe.ingredients);
 
         ((Button) findViewById(R.id.cmd)).setOnClickListener(new View.OnClickListener() {

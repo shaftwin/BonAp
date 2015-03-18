@@ -38,13 +38,16 @@ public class LoginActivity  extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
+                //VERIFICATION LOGIN
                 if (mLogin.getText().toString().equals("")) {
                     Toast.makeText(LoginActivity.this, "Login is needed", Toast.LENGTH_SHORT).show();
                     return ;
                 }
+                //STOCKAGE DANS LES SHARED PREFERENCES DU LOGIN
                 SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
                 editor.putString("username", mLogin.getText().toString());
                 editor.commit();
+
                 Intent intent = new Intent(getApplicationContext(), CategoriesActivity.class);
                 startActivity(intent);
             }

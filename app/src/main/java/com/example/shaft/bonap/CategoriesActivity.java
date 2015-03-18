@@ -18,7 +18,6 @@ public class CategoriesActivity extends BaseActivity {
 
     private int CATEGORY_ID = 0;
 
-    private GridViewAdapter mEventsGridAdapter;
     private GridView gridView;
     private List<Category> categories = new ArrayList<>();
 
@@ -30,6 +29,7 @@ public class CategoriesActivity extends BaseActivity {
         getActionBarToolbar().setTitle(R.string.title_activity_receipts);
         setSupportActionBar(getActionBarToolbar());
 
+        //CREATION DES CATEGORY
         Category meat = new Category();
         meat.title = "meat";
         meat.categoryPic = R.drawable.meat;
@@ -50,6 +50,7 @@ public class CategoriesActivity extends BaseActivity {
         ingredients.title = "ingredients";
         ingredients.categoryPic = R.drawable.ingredients;
 
+        //ADD CATEGORIES DANS LA LIST
         categories.add(meat);
         categories.add(fish);
         categories.add(dessert);

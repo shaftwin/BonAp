@@ -49,6 +49,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        //ON SET ICI LE BOUTON INFORMATION
         final Button infos = ((Button) findViewById(R.id.infos));
         infos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +57,14 @@ public class MapActivity extends BaseActivity implements LocationListener {
                 LayoutInflater layoutInflater
                         = (LayoutInflater) getBaseContext()
                         .getSystemService(LAYOUT_INFLATER_SERVICE);
+                //CREATION DE LA FENETRE POP UP
                 View popupView = layoutInflater.inflate(R.layout.popup, null);
                 final PopupWindow popupWindow = new PopupWindow(
                         popupView,
                        500,
                         1050);
 
+                //SET DU BOUTON DISMISS
                 Button btnDismiss = (Button) popupView.findViewById(R.id.dismiss);
                 btnDismiss.setOnClickListener(new Button.OnClickListener() {
 
@@ -71,19 +74,21 @@ public class MapActivity extends BaseActivity implements LocationListener {
                         popupWindow.dismiss();
                     }
                 });
+                //ON CREER LES IMAGES LIES AUX MARCHANTS
                 ((ImageView) popupView.findViewById(R.id.color1)).setBackgroundColor(Color.rgb(255, 0, 0));
                 ((ImageView) popupView.findViewById(R.id.color2)).setBackgroundColor(Color.rgb(0, 255, 255));
                 ((ImageView) popupView.findViewById(R.id.color3)).setBackgroundColor(Color.rgb(0, 255, 0));
                 ((ImageView) popupView.findViewById(R.id.color4)).setBackgroundColor(Color.rgb(255, 165, 0));
                 ((ImageView) popupView.findViewById(R.id.color5)).setBackgroundColor(Color.rgb(255, 255, 0));
                 ((ImageView) popupView.findViewById(R.id.color6)).setBackgroundColor(Color.rgb(255, 0, 255));
+                //SET POSITION DE LA FENETRE POP UP
                 popupWindow.showAsDropDown(infos, 50, -30);
 
             }
         });
 
 
-
+        //ON DESACTIVE LA BOUSSOLE
         options.mapType(GoogleMap.MAP_TYPE_SATELLITE)
                 .compassEnabled(false);
         gMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -98,6 +103,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
             }
 
             // Defines the contents of the InfoWindow
+            // ON SET ICI LES INFOS A AFFICHER QUAND ON CLICK SUR UN MARCHANT DANS LA MAP
             @Override
             public View getInfoContents(Marker arg0) {
                 View v = getLayoutInflater().inflate(R.layout.windowlayout, null);
@@ -120,18 +126,14 @@ public class MapActivity extends BaseActivity implements LocationListener {
 
 
         gMap.setMyLocationEnabled(true);
-
         // Getting LocationManager object from System Service LOCATION_SERVICE
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
         // Creating a criteria object to retrieve provider
         Criteria criteria = new Criteria();
-
         // Getting the name of the best provider
         provider = locationManager.getBestProvider(criteria, true);
         // Getting Current Location
         location = locationManager.getLastKnownLocation(provider);
-
         if (location != null) {
             onLocationChanged(location);
         }
@@ -141,6 +143,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        //ICI ON CENTRE LA CAMERA SUR LE USER
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
@@ -150,8 +153,10 @@ public class MapActivity extends BaseActivity implements LocationListener {
             gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             locationManager.requestLocationUpdates(provider, 1, 0, this);
         }
+        //ON CREER LA LIST DES MARCHANTS
         createMarchants(merchants);
         for (int i = 0; i < merchants.size(); ++i) {
+            //ON SET UN MARKER SUR CHAQUE ADRESSES
             setMarkerFromAdd(merchants.get(i).adress, merchants.get(i).type);
         }
     }
@@ -189,6 +194,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
         return MAP_ID;
     }
 
+    //FONCTION QUI PERMET DE SET UN MARKER SUR LA MAP SELON UNE ADRESSE
     public void setMarkerFromAdd(String strAddress, IngType type) {
 
         gMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -200,6 +206,8 @@ public class MapActivity extends BaseActivity implements LocationListener {
                 if (addresses.size() > 0) {
                     double latitude = addresses.get(0).getLatitude();
                     double longitude = addresses.get(0).getLongitude();
+
+                    //SELON LE TYPE DE MARCHANT ON CREER UN BOUTON D UNE CERTAINE COULEUR
                     if (type == IngType.BUTCHER)
                         gMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(latitude, longitude))
