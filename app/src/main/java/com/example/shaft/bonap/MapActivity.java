@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class MapActivity extends BaseActivity implements LocationListener {
 
+    private boolean open = false;
     private static final int MAP_ID = 1;
     private GoogleMap gMap;
     GoogleMapOptions options = new GoogleMapOptions();
@@ -54,6 +55,8 @@ public class MapActivity extends BaseActivity implements LocationListener {
         infos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (open == true)
+                    return;
                 LayoutInflater layoutInflater
                         = (LayoutInflater) getBaseContext()
                         .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -63,6 +66,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
                         popupView,
                        500,
                         1050);
+                open = true;
 
                 //SET DU BOUTON DISMISS
                 Button btnDismiss = (Button) popupView.findViewById(R.id.dismiss);
@@ -72,6 +76,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
                     public void onClick(View v) {
                         // TODO Auto-generated method stub
                         popupWindow.dismiss();
+                        open = false;
                     }
                 });
                 //ON CREER LES IMAGES LIES AUX MARCHANTS

@@ -22,6 +22,7 @@ import com.iainconnor.objectcache.GetCallback;
 import com.iainconnor.objectcache.PutCallback;
 
 import java.lang.reflect.Type;
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +58,9 @@ public class OrderActivity extends BaseActivity {
         final String username = prefs.getString("username", null);
 
         mCacheManager = CacheManager.getInstance(((MyApplication) getApplicationContext()).getDiskCache());
-       //RECUPERATION DE LA RECETTE
+        //RECUPERATION DE LA RECETTE
         recipe = (Recipe) getIntent().getSerializableExtra("item");
+
         //CREATION DE TOUTS LES MARCHANTS
         createMarchants(merchants);
 
@@ -66,12 +68,13 @@ public class OrderActivity extends BaseActivity {
         //ICI ON CREER CHAQUE LIGNE DES INGREDIENTS COMPRENANT UN NOM UN EDIT TEXT POUR LA VALEUR ET UN SPINNER POUR LA LISTE DES MARCHANDS QUI VENDENT L INGREDIENT
         for (int i = 0; i < recipe.str_ings.size(); i++) {
             List<String> m = new ArrayList<String>();
-            View r = LayoutInflater.from(getBaseContext()).inflate(R.layout.order_elem, parent, false);
+            final List<String> dist = new ArrayList<String>();
+            final View r = LayoutInflater.from(getBaseContext()).inflate(R.layout.order_elem, parent, false);
             lv.add(r);
             ((TextView) r.findViewById(R.id.ingredient)).setText(recipe.str_ings.get(i));
 
             //ON RECHERCHE LES MARCHANTS QUI POSSEDENT L INGREDIENT
-            searchMerchants(m, i);
+            searchMerchants(m, dist, i);
 
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
                     (this, android.R.layout.simple_spinner_item, m);
@@ -79,6 +82,18 @@ public class OrderActivity extends BaseActivity {
             dataAdapter.setDropDownViewResource
                     (android.R.layout.simple_spinner_dropdown_item);
             ((Spinner) r.findViewById(R.id.spinner)).setAdapter(dataAdapter);
+            ((Spinner) r.findViewById(R.id.spinner)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView) r.findViewById(R.id.dist)).setText(dist.get(position));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            ((TextView) r.findViewById(R.id.dist)).setText(dist.get(0));
             parent.addView(r);
         }
 
@@ -152,13 +167,15 @@ public class OrderActivity extends BaseActivity {
         }
     }
 
-    private void searchMerchants(List<String> m, int ite) {
+    private void searchMerchants(List<String> m, List<String> dist, int ite) {
         //ON PARCOURS LA LISTE DES MARCHANTS ET SI LE TYPE D INGREDIENT CORRESPOND ON STOCK LE MARCHANT DANS LA LIST
         for (int i = 0; i < merchants.size(); ++i) {
             for (int j = 0; j < merchants.get(i).ings.size(); ++j)
-                if (recipe.ings.get(ite) == merchants.get(i).ings.get(j))
+                if (recipe.ings.get(ite) == merchants.get(i).ings.get(j)) {
                     //STOCK ICI DANS LA LIST M
                     m.add(merchants.get(i).name);
+                    dist.add(merchants.get(i).dist);
+                }
         }
     }
 
@@ -168,7 +185,7 @@ public class OrderActivity extends BaseActivity {
         m0.adress = "4 rue Lourmel 75015 Paris";
         m0.type = IngType.BUTCHER;
         m0.ings.add(Ing.JAMBON);
-        m0.dist = "2 km";
+        m0.dist = "1 km";
         Merchant m1 = new Merchant();
         m1.name = "Vent d’Ouest";
         m1.adress = "5 rue Lourmel 75015 Paris";
@@ -180,11 +197,22 @@ public class OrderActivity extends BaseActivity {
         m2.adress = "317 rue de vaugirard 75015 Paris";
         m2.type = IngType.GROCERY;
         m2.ings.add(Ing.FOIE_GRAS);
-        m2.dist = "2 km";
+        m2.ings.add(Ing.BEURRE);
+        m2.ings.add(Ing.GROS_ŒUFS);
+        m2.ings.add(Ing.CREME_FRAÎCHE);
+        m2.ings.add(Ing.SEL_ET_POIVRE_NOIR);
+        m2.ings.add(Ing.APREMONT);
+        m2.ings.add(Ing.CHOCOLAT);
+        m2.ings.add(Ing.LAIT);
+        m2.ings.add(Ing.BRIOCHE);
+        m2.ings.add(Ing.HUILE_OLIVE);
+        m2.ings.add(Ing.POITRINE_FUMEE_EN_TRANCHES);
+        m2.dist = "3 km";
         Merchant m3 = new Merchant();
         m3.name = "Mélodie Diététique";
         m3.adress = "2 rue Fondary 75015 Paris";
         m3.type = IngType.GROCERY;
+        m3.ings.add(Ing.FOIE_GRAS);
         m3.ings.add(Ing.BEURRE);
         m3.ings.add(Ing.GROS_ŒUFS);
         m3.ings.add(Ing.CREME_FRAÎCHE);
@@ -194,7 +222,8 @@ public class OrderActivity extends BaseActivity {
         m3.ings.add(Ing.LAIT);
         m3.ings.add(Ing.BRIOCHE);
         m3.ings.add(Ing.HUILE_OLIVE);
-        m3.dist = "2 km";
+        m3.ings.add(Ing.POITRINE_FUMEE_EN_TRANCHES);
+        m3.dist = "4 km";
         Merchant m4 = new Merchant();
         m4.name = "Da Piero";
         m4.adress = "59 avenue Suffren 75007 Paris";
@@ -202,7 +231,7 @@ public class OrderActivity extends BaseActivity {
         m4.ings.add(Ing.SPAGHETTI);
         m4.ings.add(Ing.PARMESAN_RAPE);
         m4.ings.add(Ing.POITRINE_FUMEE_EN_TRANCHES);
-        m4.dist = "1.5 km";
+        m4.dist = "5 km";
         Merchant m5 = new Merchant();
         m5.name = "Le marché des saveurs";
         m5.adress = "189 rue croix nivert - 75015 Paris";
@@ -213,25 +242,25 @@ public class OrderActivity extends BaseActivity {
         m5.ings.add(Ing.ANANAS);
         m5.ings.add(Ing.BANANES);
         m5.ings.add(Ing.CITRON);
-        m5.dist = "2.4 km";
+        m5.dist = "6 km";
         Merchant m6 = new Merchant();
         m6.name = "Aubertine";
         m6.adress = "40 rue Fremicourt 75015 Paris";
         m6.type = IngType.CHOCOLATIER;
-        m6.dist = "2.5 km";
+        m6.dist = "7 km";
         Merchant m7 = new Merchant();
         m7.name = "Poilane";
         m7.adress = "49 boulevard grenelle 75015 Paris";
         m7.type = IngType.BAKERY;
         m7.ings.add(Ing.FARINE_TYPE_55);
         m7.ings.add(Ing.LEVURE);
-        m7.dist = "1 km";
+        m7.dist = "8 km";
         Merchant m8 = new Merchant();
         m8.name = "Cheese";
         m8.adress = "1 rue Desaix 75015 Paris";
         m8.type = IngType.CHEESESHOP;
         m8.ings.add(Ing.REBLOCHON);
-        m8.dist = "3 km";
+        m8.dist = "9 km";
         merchants.add(m0);
         merchants.add(m1);
         merchants.add(m2);

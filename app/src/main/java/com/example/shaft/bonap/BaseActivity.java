@@ -22,7 +22,7 @@ import com.iainconnor.objectcache.CacheManager;
 import java.util.ArrayList;
 import java.util.List;
 
-//LIST DE TOUT LES INGREDIENTS 
+//LIST DE TOUT LES INGREDIENTS
 enum Ing {
     SPAGHETTI,
     PARMESAN_RAPE,

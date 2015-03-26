@@ -127,6 +127,7 @@ public class ReceiptsActivity extends BaseActivity implements ReceiptsAdapter.Cl
                 "1 pincée de poivre";
         r1.str_ings.add("Reblochon");
         r1.str_ings.add("Jambon fumé");
+        r1.str_ings.add("Pomme de terre");
         r1.str_ings.add("Oignons");
         r1.str_ings.add("Apremont");
         r1.str_ings.add("Poivre noir du moulin");
