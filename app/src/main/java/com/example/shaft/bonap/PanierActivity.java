@@ -101,6 +101,7 @@ public class PanierActivity extends BaseActivity implements PanierAdapter.ClickL
                 //SINON ON CLEAR LA LIST D INGREDIENT DIT ADAPTER
                 adapterData.clear();
                 //ON VIDE LE PANIER
+                final List<String> ls = new ArrayList<String>(p.merchants);
                 p.ingredients.clear();
                 p.merchants.clear();
                 p.ingredients_qt.clear();
@@ -111,7 +112,12 @@ public class PanierActivity extends BaseActivity implements PanierAdapter.ClickL
                 mCacheManager.putAsync(username, p, new PutCallback() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(PanierActivity.this, "Sending Order", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PanierActivity.this, MapActivity.class);
+                        //ON ENVOIE LA RECETTE A LA PROCHAINE ACTIVITE
+                        intent.putExtra("item", (java.io.Serializable) ls);
+                        startActivity(intent);
+                        //TODO ADRESS MAIL
+                        
                     }
 
                     @Override

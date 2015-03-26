@@ -41,6 +41,8 @@ public class MapActivity extends BaseActivity implements LocationListener {
     private GoogleMap gMap;
     GoogleMapOptions options = new GoogleMapOptions();
     private List<Merchant> merchants = new ArrayList<Merchant>();
+    private Panier p;
+    private List<String> cmd;
     private Location location;
     LocationManager locationManager;
     String provider;
@@ -49,6 +51,8 @@ public class MapActivity extends BaseActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        cmd = (List<String>) getIntent().getSerializableExtra("item");
 
         //ON SET ICI LE BOUTON INFORMATION
         final Button infos = ((Button) findViewById(R.id.infos));
@@ -64,7 +68,7 @@ public class MapActivity extends BaseActivity implements LocationListener {
                 View popupView = layoutInflater.inflate(R.layout.popup, null);
                 final PopupWindow popupWindow = new PopupWindow(
                         popupView,
-                       500,
+                        500,
                         1050);
                 open = true;
 
@@ -160,10 +164,23 @@ public class MapActivity extends BaseActivity implements LocationListener {
         }
         //ON CREER LA LIST DES MARCHANTS
         createMarchants(merchants);
-        for (int i = 0; i < merchants.size(); ++i) {
-            //ON SET UN MARKER SUR CHAQUE ADRESSES
-            setMarkerFromAdd(merchants.get(i).adress, merchants.get(i).type);
-        }
+
+        if (cmd != null) {
+            Log.d("ITE", "ITE");
+            for (int i = 0; i < cmd.size(); ++i) {
+                Log.d("CMD", cmd.get(i));
+                for (int j = 0; j < merchants.size(); ++j) {
+                    Log.d("MRC", merchants.get(j).name);
+                    if (cmd.get(i).equals(merchants.get(j).name)) {
+                        setMarkerFromAdd(merchants.get(j).adress, merchants.get(j).type);
+                    }
+                }
+            }
+        } else
+            for (int i = 0; i < merchants.size(); ++i) {
+                //ON SET UN MARKER SUR CHAQUE ADRESSES
+                setMarkerFromAdd(merchants.get(i).adress, merchants.get(i).type);
+            }
     }
 
     @Override
